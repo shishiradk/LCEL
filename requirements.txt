@@ -30,3 +30,7 @@ unstructured
 pytube
 numexpr
 huggingface_hub
+langserve
+fastapi
+uvicorn
+sse_starlette

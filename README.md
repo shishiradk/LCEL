@@ -1,112 +1,88 @@
-# LCEL-Teacher
+# 🌐 LCEL Language Translator
 
-An intelligent assistant that helps users learn and explore the LangChain Expression Language (LCEL) via multiple architectures like RAG, context-stuffing, and chain recovery.
-
-## 🚀 Overview
-
-**LCEL-Teacher** is a LangChain-powered application designed to teach and support users working with LCEL. It showcases different architectures:
-
-- **Context Stuffing**: Injects LCEL documentation into the prompt.
-- **RAG**: Retrieves relevant chunks from LangChain documentation via vector search.
-- **Multi-QA RAG**: Uses multiple QA pairs for richer context.
-- **Recovery via LangGraph**: Automatically retries execution for failed chains.
-
-All chains are deployed via LangServe and exposed as endpoints.
+A minimal LCEL-based app to perform language translation using large language models (LLMs). Built by [@shishiradk](https://github.com/shishiradk) with LangChain Expression Language (LCEL) and deployed via LangServe.
 
 ---
 
-## 🧠 Architectures
+## ✨ Features
 
-Each chain is under `/app`:
-
-- `context_stuffing.py`
-- `rag.py`
-- `multi_qa_rag.py`
-- `recovery_graph.py`
-
-Embeddings are powered by Voyage AI, and the vector store is Weaviate.
+- Translate text between languages using simple LCEL chains
+- Fast API endpoint served with LangServe
+- Ready to run locally or deploy to cloud
 
 ---
 
-## 🔧 Installation
+## 🧱 File Structure
 
-### Prerequisites
+```
+├── client.py              # Test client to interact with the server
+├── serve.py               # Main LangServe app entry point
+├── simplellmLCEL.ipynb    # Notebook for interactive LCEL prototyping
+├── requirements.txt       # Python dependencies
+├── README.md              # Project overview
+├── LICENSE                # MIT License
+```
 
-- Python 3.10+
-- Poetry
+---
 
-### Environment Variables
+## ⚙️ Setup Instructions
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/shishiradk/LCEL.git
+cd LCEL
+```
+
+### 2. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Add your API key
+
+Create a `.env` file and add your OpenAI key:
 
 ```env
-WEAVIATE_URL=your_weaviate_url
-WEAVIATE_API_KEY=your_api_key
-VOYAGE_API_KEY=your_voyage_api_key
-VOYAGE_AI_MODEL=your_model_name
+OPENAI_API_KEY=your_key_here
 ```
 
-### Install Dependencies
+### 4. Run the app
 
 ```bash
-poetry install
+python serve.py
 ```
 
-### Run Locally
+The server will start at: `http://localhost:8000/`
+
+---
+
+## 🧪 Test the Translation API
+
+Run the client:
 
 ```bash
-poetry run langchain serve
+python client.py
 ```
 
----
-
-## 🧪 Evaluation
-
-Evaluation notebooks are provided under `/eval`. You can:
-
-- Run chain performance tests
-- Compare output quality
-
-Use `eval/eval_lcel_teacher.ipynb` to get started.
-
----
-
-## 📁 Project Structure
-
-```
-/app                # Chain implementations
-/eval               # Evaluation notebooks
-/ntbk               # Prototyping and experiments
-Dockerfile          # Container configuration
-pyproject.toml      # Dependencies and project metadata
-README.md           # Project overview
-```
-
----
-
-## 📬 API Usage
-
-After serving locally, send a POST request to:
-
-```
-http://localhost:8000/lcel-teacher
-```
-
-With a JSON body like:
+Or send a direct request (e.g., via `curl` or Postman):
 
 ```json
+POST /invoke
+
 {
-  "question": "How do I use map_chain in LCEL?"
+  "input": {
+    "language": "french",
+    "text": "hello my mame is shishir"
+  },
+  "config": {},
+  "kwargs": {}
 }
 ```
 
 ---
 
-## 🙌 Credits
+## 📝 License
 
-Built using LangServe, LangGraph, and LangChain.
-
----
-
-## 📜 License
-
-MIT License. See `LICENSE` file for details.
-# LCEL
+This project is licensed under the [MIT License](LICENSE).
